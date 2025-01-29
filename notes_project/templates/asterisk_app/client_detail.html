@@ -1,0 +1,18 @@
+<!-- templates/asterisk_app/client_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ client.name }}</h1>
+
+<p><strong>Email:</strong> {{ client.contact_info.email }}</p>
+  <p>Email: {{ client.contact_info }}</p>
+<p>Телефон: {{ client.contact_info.phone }}</p>
+
+{% if client.image %}
+    <img src="{{ client.image.url }}" alt="{{ client.name }}">
+{% endif %}
+ <a href="{% url 'edit_client' pk=client.pk %}">Редактировать</a>
+
+  <br>
+  <a href="{% url 'client_list' %}">Вернуться к списку клиентов</a>
+{% endblock %}

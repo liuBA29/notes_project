@@ -1,0 +1,42 @@
+<!-- templates/base.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Наша ЦРМ{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'CSS/styles.css' %}">
+</head>
+<body>
+
+    <!-- Заголовок сайта -->
+    <header>
+        <div class="container">
+            <h1><a href="{% url 'home' %}">Наша ЦРМочка</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'client_list' %}">Клиенты</a></li>
+                    <li><a href="{% url 'note_list' %}">Задачи (заметки)</a></li>
+                    <li><a href="{% url 'note_create' %}">Создать задачу (заметку)</a></li>
+                    <li><a href="{% url 'call_list' %}">Журнал звонков</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основное содержимое страницы -->
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Моя срм. Все права защищены.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+
+notes_project/              # общая папка
+├── notes_project/          # Корневая папка проекта
+│   ├── notes_project       # Конфигурация Django
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── ...
+│   │
+│   ├── notes_app           # Приложение для работы с заметками
+│   │   ├── models.py
+│   │   ├── views.py
+│   ├── forms.py
+│   │   └── ...
+│   │
+│   ├── asterisk_app           # Приложение для работы с asterisk
+│   │   ├── models.py
+│   │   ├── views.py
+│   ├── forms.py
+│   │   └── ...
+│   │
+│   ├── templates/
+│   │   ├── base.html
+│   │   └── notes/          # различные шаблоны
+│   │
+│   ├── requirements.txt    # Зависимости проекта
+│   ├── db.sqlite3          # SQLite база данных
+│   ├── manage.py           # Главный скрипт Django
+│   ├── Dockerfile          # Файл сборки Docker
+│   ├── docker-compose.yml  # Конфигурация Docker Compose
+│   ├── .gitignore          # Исключения для Git
+│   ├── .dockerignore       # Исключения для Docker
+│   ├── static/             # Статические файлы (CSS, JS)
+├── venv/                   # Виртуальная среда (в .gitignore)
+└── structures.txt          # структура прокекта

@@ -1,0 +1,48 @@
+<!-- templates/asterisk_app/clients_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Список клиентов{% endblock %}
+
+{% block content %}
+    <h1>All Clients</h1>
+  <!-- Статус соединения с Asterisk -->
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clients %}
+        <tr>
+            <td><a href="{% url 'client_detail' client.pk %}" target="_blank">{{ client.name }}</a></td>
+            <td>{{ client.contact_info.phone }}</td>
+            <td>{{ client.contact_info.email }}</td>
+
+            <td>
+                {% if client.image %}
+                    <img src="{{ client.image.url }}" alt="{{ client.name }}" width="50" height="50" class="thumbnail" onclick="openImageModal('{{ client.image.url }}')">
+                {% else %}
+                    No image
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'edit_client' client.pk %}">Edit</a> /
+                <a href="{% url 'delete_client' client.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<br>
+<a href="{% url 'add_client' %}">Add New Client</a>
+
+
+{% endblock %}

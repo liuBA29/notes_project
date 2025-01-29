@@ -1,0 +1,13 @@
+<!-- templates/asterisk_app/call_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Журнал звонков</h1>
+  <ul>
+    {% for call in calls %}
+        <li>{{ call.calling_number }} - {{ call.state }} ({{ call.created_at }})</li>
+    {% empty %}
+        <p>Звонков пока нет.</p>
+    {% endfor %}
+</ul>
+{% endblock %}
