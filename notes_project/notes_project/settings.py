@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-u&e-+8@e+s3)b(sfh3os88a3#q%l_fxa^sgv=9rtg%*$!9p)02
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'pancrm.web.cloudcenter.ovh']
 
 
 # Application definition
@@ -130,7 +130,10 @@ STATICFILES_DIRS = [
 ]
 
 # Папка для сбора статических файлов при деплое
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')# Будет использоваться при запуске collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')# Будет использоваться при запуске
+
+
+# collectstatic
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-
