@@ -16,6 +16,13 @@ RUN pip install --upgrade pip \
 # Копируем все файлы проекта
 COPY . /app
 
+# Загружаем переменные окружения из .env (если используешь .env для Cloudinary)
+# Устанавливаем переменные окружения для Cloudinary
+ENV CLOUDINARY_CLOUD_NAME=your_cloud_name
+ENV CLOUDINARY_API_KEY=your_api_key
+ENV CLOUDINARY_API_SECRET=your_api_secret
+
+
 # Собираем статические файлы (при сборке контейнера)
 RUN python manage.py collectstatic --noinput
 

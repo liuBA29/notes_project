@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-u&e-+8@e+s3)b(sfh3os88a3#q%l_fxa^sgv=9rtg%*$!9p)02
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'pancrm.web.cloudcenter.ovh']
+ALLOWED_HOSTS = ['pancrm.web.cloudcenter.ovh', '127.0.0.1', 'localhost' ]
 
 
 # Application definition
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'notes_app.apps.NotesAppConfig',
     'asterisk_app.apps.AsteriskAppConfig',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -140,9 +142,30 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'https://res.cloudinary.com/dczzlelzw/'
+MEDIA_ROOT = BASE_DIR / 'media'  # Это можно оставить как есть для локальных файлов
 
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+
+from dotenv import load_dotenv
+
+load_dotenv()  # Загружает переменные из .env
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+

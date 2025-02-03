@@ -4,9 +4,9 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from cloudinary.models import CloudinaryField
 
-from django.db import models
-from django.utils import timezone
+
 
 
 
@@ -21,7 +21,7 @@ class ContactInfo(models.Model):
 class Client(models.Model):
     name = models.CharField(max_length=55)
     contact_info = models.OneToOneField(ContactInfo, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.ImageField(upload_to='client_images/', blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
