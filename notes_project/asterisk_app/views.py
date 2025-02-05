@@ -2,13 +2,18 @@ import os
 from dotenv import load_dotenv
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+import threading
+import time
 from .models import *
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .forms import ClientForm
-from .scripts.asteriisk_connection import AsteriskConnection
+from .scripts.asterisk_connection import AsteriskConnection
+
+# Глобальная переменная для хранения статуса
+
 
 host = os.getenv('ASTERISK_HOST')  # IP-адрес сервера
 port = int(os.getenv('ASTERISK_PORT', 22))  # Преобразуем порт в число
@@ -17,29 +22,33 @@ password = os.getenv('ASTERISK_PASSWORD')  # Пароль для подключ�
 load_dotenv()
 
 
-def check_asterisk_connection(request):
-    # Получаем данные для подключения из настроек или переменных окружения
 
-    # Создаем объект подключения к Asterisk
+
+
+
+def asterisk_status(request):
+    # Get connection details from environment variables
+    # Create an instance of AsteriskConnection
+    asterisk_conn = AsteriskConnection(host, port, username, password)
+
+    # Try to connect and check the connection
+    asterisk_conn.connect()
+    status = asterisk_conn.check_connection()
+
+
+    # Return the connection status as JSON
+    return JsonResponse({'asterisk_status': status})
+
+def get_asterisk_connection_status():
+    # Создаем экземпляр подключения
     asterisk_conn = AsteriskConnection(host, port, username, password)
 
     # Подключаемся к серверу Asterisk
     asterisk_conn.connect()
 
-    # Проверяем соединение и передаем результат в шаблон
+    # Проверяем состояние соединения
     is_connected = asterisk_conn.check_connection()
-
-    # Закрываем соединение после проверки
-    asterisk_conn.close_connection()
-
-    # Отправляем результат в контекст шаблона
-    context = {
-        'is_connected': is_connected,
-    }
-
-    return render(request, 'asterisk_app/asterisk_con.html', context)
-
-
+    print("is connected")
 
 def client_list(request):
     #clients = Client.objects.all().values('id', 'name', 'is_active')

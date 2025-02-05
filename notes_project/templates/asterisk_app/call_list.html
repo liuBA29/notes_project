@@ -10,4 +10,10 @@
         <p>Звонков пока нет.</p>
     {% endfor %}
 </ul>
+
+{% block extra_js %}
+<script>
+    console.log("Этот скрипт только для определенной страницы");
+</script>
+{% endblock %}
 {% endblock %}
