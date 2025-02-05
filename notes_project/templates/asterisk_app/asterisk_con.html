@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Статус подключения к Asterisk</h2>
+    {% if is_connected %}
+        <p>Подключение к серверу Asterisk успешно!</p>
+    {% else %}
+        <p>Не удалось подключиться к серверу Asterisk.</p>
+    {% endif %}
+{% endblock %}

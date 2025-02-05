@@ -9,13 +9,23 @@ notes_project/              # общая папка
 │   ├── notes_app           # Приложение для работы с заметками
 │   │   ├── models.py
 │   │   ├── views.py
-│   ├── forms.py
+│   │   ├── forms.py
 │   │   └── ...
 │   │
 │   ├── asterisk_app           # Приложение для работы с asterisk
+│   │   ├── migrations/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── test.py
+│   │   ├── urls.py
 │   │   ├── models.py
 │   │   ├── views.py
-│   ├── forms.py
+│   │   ├── forms.py
+│   │   ├── scripts/
+│   │   │   ├── asterisk_connection.py
+│   │   │   ├── ...
+│   │   │   └── ...
 │   │   └── ...
 │   │
 │   ├── templates/
