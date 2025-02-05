@@ -12,7 +12,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os.path
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
+# Загружаем переменные окружения
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,14 +26,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u&e-+8@e+s3)b(sfh3os88a3#q%l_fxa^sgv=9rtg%*$!9p)02'
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+CSRF_TRUSTED_ORIGINS = [
+    'https://pancrm.web.cloudcenter.ovh',
+]
 
-
-ALLOWED_HOSTS = ['pancrm.web.cloudcenter.ovh', '127.0.0.1', 'localhost' ]
 
 
 # Application definition
@@ -83,8 +89,12 @@ WSGI_APPLICATION = 'notes_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': BASE_DIR / os.getenv('DB_NAME', 'db.sqlite3'),
+        'USER': os.getenv('DB_USER', ''),
+        'PASSWORD': os.getenv('DB_PASSWORD', ''),
+        'HOST': os.getenv('DB_HOST', ''),
+        'PORT': os.getenv('DB_PORT', ''),
     }
 }
 
@@ -148,14 +158,8 @@ MEDIA_ROOT = BASE_DIR / 'media'  # Это можно оставить как е�
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
 
-from dotenv import load_dotenv
-
-load_dotenv()  # Загружает переменные из .env
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
@@ -164,7 +168,6 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
