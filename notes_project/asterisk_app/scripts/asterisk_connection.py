@@ -47,7 +47,22 @@ class AsteriskConnection:
                 print(f"Error during command execution: {e}")
         return False
 
+    def get_active_calls(self):
+        """ Проверяет количество активных звонков на Asterisk (только если подключение активно) """
+        if not self.client:
+            return "Connection error"
 
+        try:
+            stdin, stdout, stderr = self.client.exec_command('asterisk -rx "core show channels count"')
+            output = stdout.read().decode()
+            if "active call" in output:
+                for line in output.split("\n"):
+                    if "active call" in line:
+                        return line.strip()  # Например: "1 active call"
+            return "No active calls"
+        except Exception as e:
+            print(f"Error checking active calls: {e}")
+            return "Error fetching calls"
 
 
     def close_connection(self):

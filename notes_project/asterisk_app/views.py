@@ -27,17 +27,18 @@ load_dotenv()
 
 
 def asterisk_status(request):
-    # Get connection details from environment variables
-    # Create an instance of AsteriskConnection
     asterisk_conn = AsteriskConnection(host, port, username, password)
-
-    # Try to connect and check the connection
     asterisk_conn.connect()
-    status = asterisk_conn.check_connection()
 
+    status = asterisk_conn.check_connection()
+    if status:
+        active_calls = asterisk_conn.get_active_calls()
+    else:
+        active_calls = "no asterisk connection"
 
     # Return the connection status as JSON
-    return JsonResponse({'asterisk_status': status})
+    return JsonResponse({'asterisk_status': status, 'active_calls': active_calls})
+
 
 def get_asterisk_connection_status():
     # Создаем экземпляр подключения
@@ -49,6 +50,10 @@ def get_asterisk_connection_status():
     # Проверяем состояние соединения
     is_connected = asterisk_conn.check_connection()
     print("is connected")
+
+
+
+
 
 def client_list(request):
     #clients = Client.objects.all().values('id', 'name', 'is_active')
