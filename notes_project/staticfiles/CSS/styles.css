@@ -1,91 +1,91 @@
 /* static/styles.css */
 
-/* Общие стили */
+/* Основные стили */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f7fc;
     margin: 0;
     padding: 0;
-    color: #333;
-}
-
-/*start json container*/
-json-container {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        width: 300px;
-        background: white;
-        border: 2px solid #007bff;
-        border-radius: 10px;
-        padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        color: #333;
-        z-index: 1000;
-    }
-
-    json-container pre {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        margin: 0;
-    }
-/*end json container*/
-
-
-a {
-    text-decoration: none;
-    color: inherit;
+    background-color: #f4f4f4;
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
+    width: 80%;
     margin: 0 auto;
+    max-width: 1200px;
 }
 
-/* Заголовок */
+/* Стили для шапки */
 header {
-    background-color: #4CAF50;
+    background: #007bff;
     color: white;
-    padding: 20px 0;
-    margin-bottom: 20px;
+    padding: 15px 0;
+    text-align: center;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2rem;
+header h1 a {
+    color: white;
+    text-decoration: none;
 }
 
-header nav ul {
-    list-style-type: none;
+nav ul {
+    list-style: none;
     padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
 }
 
-header nav ul li {
-    display: inline-block;
-    margin-right: 20px;
+nav ul li {
+    margin: 0 15px;
 }
 
-header nav ul li a {
+nav ul li a {
     color: white;
-    font-size: 1.1rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Основной контент */
+main.container {
+    background: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Подвал */
 footer {
-    background-color: #333;
+    background: #333;
     color: white;
-    padding: 10px 0;
     text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
 }
 
-footer p {
+/* Стили для блока статуса Asterisk */
+#json-data {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 300px;
+    background: white;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    z-index: 1000;
+}
+
+#json-data pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
     margin: 0;
-}
-
-/* Основной контент */
-main {
-    margin-bottom: 50px;
 }
