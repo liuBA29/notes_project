@@ -6,10 +6,6 @@ from django.utils import timezone
 from django.urls import reverse
 from cloudinary.models import CloudinaryField
 
-
-
-
-
 class ContactInfo(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField(unique=True, blank=True, null=True)

@@ -11,6 +11,7 @@ from django.urls import reverse_lazy
 
 from .forms import ClientForm
 from .scripts.asterisk_connection import AsteriskConnection
+from .scripts.calling_number import calling_number
 
 # Глобальная переменная для хранения статуса
 
@@ -23,9 +24,6 @@ load_dotenv()
 
 
 
-
-
-
 def asterisk_status(request):
     asterisk_conn = AsteriskConnection(host, port, username, password)
     asterisk_conn.connect()
@@ -33,25 +31,14 @@ def asterisk_status(request):
     status = asterisk_conn.check_connection()
     if status:
         active_calls = asterisk_conn.get_active_calls()
+        calling_numbers = calling_number.get_active_calls().get('calling_numbers', [])
+
     else:
         active_calls = "no asterisk connection"
+        calling_numbers = []
 
     # Return the connection status as JSON
-    return JsonResponse({'asterisk_status': status, 'active_calls': active_calls})
-
-
-def get_asterisk_connection_status():
-    # Создаем экземпляр подключения
-    asterisk_conn = AsteriskConnection(host, port, username, password)
-
-    # Подключаемся к серверу Asterisk
-    asterisk_conn.connect()
-
-    # Проверяем состояние соединения
-    is_connected = asterisk_conn.check_connection()
-    print("is connected")
-
-
+    return JsonResponse({'asterisk_status': status, 'active_calls': active_calls, 'calling_numbers': calling_numbers})
 
 
 
