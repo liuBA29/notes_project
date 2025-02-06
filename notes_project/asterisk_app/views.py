@@ -37,8 +37,26 @@ def asterisk_status(request):
         active_calls = "no asterisk connection"
         calling_numbers = []
 
-    # Return the connection status as JSON
-    return JsonResponse({'asterisk_status': status, 'active_calls': active_calls, 'calling_numbers': calling_numbers})
+    # Дополнительно получаем клиентов, чьи номера совпадают с номерами звонящих
+    clients = Client.objects.all()
+    client_names = []
+
+    for client in clients:
+         # Сопоставляем номера клиентов с их именами
+        if client.contact_info and client.contact_info.phone:
+            for number in calling_numbers:
+                if number == client.contact_info.phone:
+                    client_names.append(client.name)
+
+    # Возвращаем JSON с добавленным именем клиента, если номер совпал
+    return JsonResponse({
+        'asterisk_status': status,
+        'active_calls': active_calls,
+        'calling_numbers': calling_numbers,
+        'client_names': client_names  # Добавляем пары "номер звонящего": "имя клиента"
+    })
+
+
 
 
 

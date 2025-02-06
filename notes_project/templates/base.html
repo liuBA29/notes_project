@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Наша ЦРМ{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'CSS/styles.css' %}">
-
 </head>
 <body>
 
@@ -29,7 +28,7 @@
     </header>
 
     <!-- Статус подключения к Asterisk -->
-    <div id="json-data">Loading...</div>
+    <div id="json-data">Подключение к Asterisk...</div>
 
     <!-- Основное содержимое страницы -->
     <main class="container">
@@ -37,23 +36,20 @@
     </main>
 
     <!-- Подвал -->
-   <footer>
-    <div class="container">
-        <p>&copy; 2025 Моя срм. Все права защищены.</p>
-    </div>
-</footer>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Моя ЦРМ. Все права защищены.</p>
+        </div>
+    </footer>
 
-<!-- JavaScript для обновления статуса Asterisk -->
-<script>
-        // Функция для получения и отображения JSON данных
+    <!-- JavaScript для обновления статуса Asterisk -->
+    <script>
         async function fetchAndDisplayJSON() {
             try {
-                const response = await fetch('/clients/api/asterisk_status/');  // Путь к вашему API
-                const data = await response.json();  // Преобразуем ответ в JSON
+                const response = await fetch('/clients/api/asterisk_status/');
+                const data = await response.json();
 
-                // Проверяем, что в JSON есть поле 'asterisk_status'
                 if (data.asterisk_status !== undefined) {
-                    // Отображаем JSON на странице
                     document.getElementById('json-data').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
                 } else {
                     document.getElementById('json-data').textContent = 'Invalid response from server.';
@@ -64,13 +60,11 @@
             }
         }
 
-        // Инициализация при загрузке страницы
         fetchAndDisplayJSON();
-        setInterval(fetchAndDisplayJSON, 7000);  // 7000 миллисекунд = 7 секунд
+        setInterval(fetchAndDisplayJSON, 7000);
     </script>
 
-{% block extra_js %}{% endblock %}
+    {% block extra_js %}{% endblock %}
 
 </body>
 </html>
-
