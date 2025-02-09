@@ -4,6 +4,15 @@
 {% block title %}Список клиентов{% endblock %}
 
 {% block content %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
     <h1>All Clients</h1>
   <!-- Статус соединения с Asterisk -->
 
@@ -17,6 +26,9 @@
             <th>Actions</th>
         </tr>
     </thead>
+
+
+
     <tbody>
         {% for client in clients %}
         <tr>

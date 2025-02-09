@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 import threading
@@ -122,15 +123,16 @@ def delete_client(request, pk):
     clients = Client.objects.all()
     client = get_object_or_404(Client, pk=pk)
     if request.method == "POST":
+        client_name = client.name
         client.delete()  # Удаляем клиента
+        messages.success(request, f"Клиент {client_name} был успешно удален")
         # messages.success(request, f"Client {client.name} successfully deleted.")
         return redirect('client_list')  # Перенаправляем на список клиентов
     context = {
-
         'clients': clients,
         'client': client,
     }
-    return render(request, 'configurations/delete_client.html', context)
+    return render(request, 'asterisk_app/delete_client.html', context)
 
 
 def call_list(request):
